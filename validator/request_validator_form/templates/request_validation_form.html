@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма запроса</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Форма запроса</h1>
+    <form method="post" id="request-validation-form">
+        {% csrf_token %}
+        <div>
+            <label for="id_sender">Отправитель:</label>
+            {{ form.sender }}
+        </div>
+        <div>
+            <label for="id_explanation">Пояснение:</label>
+            {{ form.explanation }}
+        </div>
+        <div>
+            <label for="id_type_sk">Тип СК:</label>
+            {{ form.type_sk }}
+        </div>
+        <div>
+            <label for="id_chapter">Раздел:</label>
+            {{ form.chapter }}
+        </div>
+        <div>
+            <label for="id_release">Релиз:</label>
+            {{ form.release }}
+        </div>
+
+        <div id="dynamic-fields">
+            {% for field in form %}
+                {% if field.name not in form.Meta.fields %}
+                    <div>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#id_type_sk').change(function() {
+                var typeSk = $(this).val();
+                var form = $('#request-validation-form');
+                $.ajax({
+                    url: '{% url "get_dynamic_fields" %}',
+                    type: 'GET',
+                    data: {
+                        'type_sk': typeSk
+                    },
+                    success: function(response) {
+                        $('#dynamic-fields').empty();
+                        for (var fieldName in response) {
+                            var fieldConfig = response[fieldName];
+                            var fieldHtml = `
+                                <div>
+                                    <label for="id_${fieldName}">${fieldConfig.label}:</label>
+                                    <input type="${fieldConfig.type}" name="${fieldName}" id="id_${fieldName}" ${fieldConfig.required ? 'required' : ''}>
+                                </div>
+                            `;
+                            $('#dynamic-fields').append(fieldHtml);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Ошибка при загрузке динамических полей:", error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
