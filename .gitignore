@@ -1,2 +1,4 @@
 venv/
 validator/db.sqlite3
+__pycache__/
+validator/request_validator_form/migrations

@@ -16,7 +16,7 @@ def request_validation_view(request):
         form = RequestValidationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('http://127.0.0.1:8000/admin/')
+            return redirect('http://127.0.0.1:8000/admin/request_validator_form/requestvalidation/')
     else:
         form = RequestValidationForm()
     return render(request, 'request_validation_form.html', {'form': form})

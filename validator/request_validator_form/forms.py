@@ -6,7 +6,7 @@ from convert_json.main import only_params
 class RequestValidationForm(forms.ModelForm):
     class Meta:
         model = RequestValidation
-        fields = ['sender', 'date_send', 'explanation', 'type_sk', 'chapter', 'release']
+        fields = ['sender', 'explanation', 'type_sk', 'chapter', 'release']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,6 +22,9 @@ class RequestValidationForm(forms.ModelForm):
                 required=field_config.get('required', True)
             )
 
+    def get_param_values_for_type_sk(self, type_sk):
+        return only_params.get(type_sk, {})
+
     def get_field_type(self, field_type):
         field_types = {
             "CharField": forms.CharField,
@@ -31,21 +34,38 @@ class RequestValidationForm(forms.ModelForm):
         }
         return field_types.get(field_type, forms.CharField)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        type_sk = cleaned_data.get('type_sk')
+        
+        if type_sk:
+            field_configs = self.get_param_values_for_type_sk(type_sk)
+            for field_name in field_configs.keys():
+                field_value = self.data.get(field_name)
+                if field_value is not None:
+                    cleaned_data[field_name] = field_value
+        
+        return cleaned_data
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         if commit:
             instance.save()
-        instance.parameters.all().delete()
-        type_sk = self.cleaned_data.get('type_sk')
+            
+        type_sk = self.clean().get('type_sk')
         if type_sk:
+            parameters_to_create = []
             field_configs = self.get_param_values_for_type_sk(type_sk)
             for field_name in field_configs.keys():
-                print("Название поля", field_name)
                 value = self.cleaned_data.get(field_name)
                 if value is not None:
-                    Parameter.objects.create(
-                        request=instance,
-                        name=field_name,
-                        value=value
+                    parameters_to_create.append(
+                        Parameter.objects.create(
+                            request=instance,
+                            name=field_name,
+                            value=str(value)
+                        )
                     )
+            if parameters_to_create:
+                Parameter.objects.bulk_create(parameters_to_create, ignore_conflicts=True)
         return instance
