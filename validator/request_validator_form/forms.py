@@ -1,4 +1,4 @@
-from django import forms
+""" from django import forms
 from .models import RequestValidation, Parameter
 from convert_json.main import only_params
 
@@ -68,4 +68,4 @@ class RequestValidationForm(forms.ModelForm):
                     )
             if parameters_to_create:
                 Parameter.objects.bulk_create(parameters_to_create, ignore_conflicts=True)
-        return instance
+        return instance """

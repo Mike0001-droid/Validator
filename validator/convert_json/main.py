@@ -1,4 +1,4 @@
-from convert_json.js import param
+from validator.request_validator_form.utils.js import param
 
 only_params = {}
 for key, index in param.items():
