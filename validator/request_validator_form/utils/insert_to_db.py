@@ -1,5 +1,5 @@
 import os, sys
-sys.path.append('C:/Users/major/validator_v1/validator')
+sys.path.append('C:/Users/major/Validator/validator')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'validator.settings'
 import django
 django.setup()
@@ -42,3 +42,5 @@ def main():
 
     Parameter.objects.bulk_create(parameters_to_create, ignore_conflicts=True)
     Value.objects.bulk_create(values_to_create, ignore_conflicts=True)
+
+main()

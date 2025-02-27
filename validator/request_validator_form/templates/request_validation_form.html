@@ -1,78 +1,80 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма запроса</title>
+    <title>Dynamic Form</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .existing-values {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .new-value {
+            margin-top: 10px;
+        }
+        .add-value-btn {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Форма запроса</h1>
-    <form method="post" id="request-validation-form">
+    <form method="post">
         {% csrf_token %}
-        <div>
-            <label for="id_sender">Отправитель:</label>
-            {{ form.sender }}
+        {{ form.type_sk }}
+        <div id="parameters-container">
         </div>
-        <div>
-            <label for="id_explanation">Пояснение:</label>
-            {{ form.explanation }}
-        </div>
-        <div>
-            <label for="id_type_sk">Тип СК:</label>
-            {{ form.type_sk }}
-        </div>
-        <div>
-            <label for="id_chapter">Раздел:</label>
-            {{ form.chapter }}
-        </div>
-        <div>
-            <label for="id_release">Релиз:</label>
-            {{ form.release }}
-        </div>
-
-        <div id="dynamic-fields">
-            {% for field in form %}
-                {% if field.name not in form.Meta.fields %}
-                    <div>
-                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                        {{ field }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <button type="submit">Отправить</button>
+        <button type="submit">Submit</button>
     </form>
 
     <script>
         $(document).ready(function() {
             $('#id_type_sk').change(function() {
-                var typeSk = $(this).val();
-                var form = $('#request-validation-form');
-                $.ajax({
-                    url: '{% url "get_dynamic_fields" %}',
-                    type: 'GET',
-                    data: {
-                        'type_sk': typeSk
-                    },
-                    success: function(response) {
-                        $('#dynamic-fields').empty();
-                        for (var fieldName in response) {
-                            var fieldConfig = response[fieldName];
-                            var fieldHtml = `
-                                <div>
-                                    <label for="id_${fieldName}">${fieldConfig.label}:</label>
-                                    <input type="${fieldConfig.type}" name="${fieldName}" id="id_${fieldName}" ${fieldConfig.required ? 'required' : ''}>
-                                </div>
-                            `;
-                            $('#dynamic-fields').append(fieldHtml);
+                var typeSkId = $(this).val();
+                if (typeSkId) {
+                    $.ajax({
+                        url: `/get-parameters/${typeSkId}/`,
+                        method: 'GET',
+                        success: function(data) {
+                            var container = $('#parameters-container');
+                            container.empty();
+                            data.forEach(function(param) {
+                                var values = param.values.map(v => v.value).join('\n');
+                                container.append(`
+                                    <div>
+                                        <label>${param.name}</label>
+                                        <div class="existing-values">${values}</div>
+                                        <textarea name="param_${param.id}" class="form-control new-value" rows="3" placeholder="Введите новое значение"></textarea>
+                                        <button type="button" class="add-value-btn" data-param-id="${param.id}">+</button>
+                                    </div>
+                                `);
+                            });
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Ошибка при загрузке динамических полей:", error);
-                    }
-                });
+                    });
+                }
+            });
+
+            $(document).on('click', '.add-value-btn', function() {
+                var paramId = $(this).data('param-id');
+                var newValue = $(`textarea[name="param_${paramId}"]`).val();
+                if (newValue) {
+                    $.ajax({
+                        url: `/add-value/${paramId}/`,
+                        method: 'POST',
+                        data: {
+                            value: newValue,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                var existingValuesDiv = $(`textarea[name="param_${paramId}"]`).prev('.existing-values');
+                                existingValuesDiv.append(`\n${newValue}`);
+                                $(`textarea[name="param_${paramId}"]`).val('');
+                            }
+                        }
+                    });
+                }
             });
         });
     </script>
