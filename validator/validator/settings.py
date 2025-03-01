@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-r3f5s25*zzi-6krral=h6@575dgm95e6n$!h*o32l4g%xt(ebz'
@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_bootstrap5',
     'django.contrib.staticfiles',
     'request_validator_form',
 ]
@@ -87,5 +88,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    'C:/Users/m.mayorov/Validator/validator/static',
+)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

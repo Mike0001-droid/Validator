@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT-Hoves-Pro-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_DemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Black_Italic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Expanded_Bold_Italic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Expanded_Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro';
+    src: url('/static/font/TT_Hoves_Pro_Expanded_Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Hoves Pro Variable';
+    src: url('/static/font/TT_Hoves_Pro_Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Medium';
+    src: url('/static/font/TT_Interphases_Pro_Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Устанавливаем шрифт для всего сайта */
+* {
+    font-family: 'TT Hoves Pro', sans-serif !important;
+}
+
+/* Если нужно применить переменный шрифт */
+.variable-font {
+    font-family: 'TT Hoves Pro Variable', sans-serif;
+    font-weight: 100 900;
+}
+

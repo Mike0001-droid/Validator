@@ -1,79 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dynamic Form</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request Recognition Validity</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesRequestRecognitionValidity.css' %}">
+    <link rel="stylesheet" href="{% static 'font.css' %}">
     <style>
-        .existing-values {
-            margin-bottom: 10px;
-            padding: 10px;
+        /* Стили для выпадающего списка */
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
             border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+        .dropdown-toggle img {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+        .dropdown-toggle.active img {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 1000;
+        }
+        .dropdown-menu .dropdown-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+        .selected-values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .selected-value {
+            display: flex;
+            align-items: center;
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .selected-value .remove-value {
+            margin-left: 5px;
+            cursor: pointer;
+            color: #dc3545;
+        }
+        /* Стили для скрытого поля ввода */
+        .new-value-input-group {
+            display: none; /* Изначально скрыто */
+            margin-top: 10px;
+        }
+        /* Стили для области параметра */
+        .parameter-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             background-color: #f9f9f9;
         }
-        .new-value {
-            margin-top: 10px;
+        .parameter-block label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
         }
-        .add-value-btn {
+        .parameter-block .custom-dropdown {
+            margin-bottom: 10px;
+        }
+        .parameter-block .plus-button {
             margin-top: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.type_sk }}
-        <div id="parameters-container">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+        Запрос на признание валидности
+    </button>
 
-    <script>
-        $(document).ready(function() {
-            $('#id_type_sk').change(function() {
-                var typeSkId = $(this).val();
-                if (typeSkId) {
-                    $.ajax({
-                        url: `/get-parameters/${typeSkId}/`,
-                        method: 'GET',
-                        success: function(data) {
-                            var container = $('#parameters-container');
-                            container.empty();
-                            data.forEach(function(param) {
-                                var values = param.values.map(v => v.value).join('\n');
-                                container.append(`
-                                    <div>
-                                        <label>${param.name}</label>
-                                        <div class="existing-values">${values}</div>
-                                        <textarea name="param_${param.id}" class="form-control new-value" rows="3" placeholder="Введите новое значение"></textarea>
-                                        <button type="button" class="add-value-btn" data-param-id="${param.id}">+</button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Запрос на признание валидности</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <div class="row border-information">
+                                    <div class="col-2">
+                                        <label class="label">Пояснение:</label>
                                     </div>
-                                `);
-                            });
+                                    <div class="col">
+                                        <textarea id="explanation" class="form-control" rows="3" placeholder="Введите пояснение"></textarea>
+                                    </div>
+                                </div>
+
+                                <form id="dynamic-form">
+                                    <div class="mb-3">
+                                        <label for="id_type_sk">Тип СК:</label>
+                                        <select class="form-control" id="id_type_sk">
+                                            <option value="">Выберите тип СК</option>
+                                            {% for type_sk in building_constructs %}
+                                                <option value="{{ type_sk.id }}">{{ type_sk.type_sk }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="selected-values" id="selected-types-sk"></div>
+                                    </div>
+
+                                    <div id="parameters-container">
+                                        <!-- Параметры будут добавляться сюда динамически -->
+                                    </div>
+                                    <button type="button" id="save-form-btn" class="btn btn-primary">Сохранить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'toggleBtn.js' %}" type="module"></script>
+    <script src="{% static 'combobox.js' %}" type="module"></script>
+    <script src="{% static 'comboboxWhite.js' %}" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        // Функция для добавления выбранного типа СК
+        function addSelectedTypeSk(typeSkId, typeSkName) {
+            const selectedTypesSkContainer = $('#selected-types-sk');
+            selectedTypesSkContainer.empty(); // Очищаем предыдущий выбор
+            selectedTypesSkContainer.append(`
+                <div class="selected-value" data-value="${typeSkId}">
+                    ${typeSkName}
+                    <span class="remove-value" onclick="removeSelectedTypeSk()">❌</span>
+                </div>
+            `);
+        }
+
+        // Функция для удаления выбранного типа СК
+        function removeSelectedTypeSk() {
+            $('#selected-types-sk').empty(); // Очищаем блок выбранного типа СК
+            $('#id_type_sk').val(''); // Сбрасываем выбор в выпадающем списке
+        }
+
+        // Обработка выбора типа СК
+        $('#id_type_sk').change(function() {
+            const typeSkId = $(this).val();
+            if (typeSkId) {
+                $.ajax({
+                    url: `/get-parameters/${typeSkId}/`,
+                    method: 'GET',
+                    success: function(data) {
+                        const container = $('#parameters-container');
+                        container.empty();
+                        data.forEach(function(param) {
+                            container.append(`
+                                <div class="parameter-block">
+                                    
+                                    <div class="custom-dropdown">
+                                        <div class="dropdown-toggle">
+                                            <span>${param.name}</span>
+                                            <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            ${param.values.map(value => `
+                                                <div class="dropdown-item" data-value="${value}">${value}</div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div class="selected-values" id="selected-values-${param.id}"></div>
+                                    <button type="button" class="btn btn-outline-secondary show-new-value-input" data-param-id="${param.id}">
+                                            <img class="imgObject" src="{% static 'images/buttonForChat.svg' %}" alt="Плюс">
+                                    </button>
+                                    <div class="new-value-input-group" id="new-value-input-group-${param.id}">
+                                        <input type="text" class="form-control new-value-input" data-param-id="${param.id}" placeholder="Введите новое значение">
+                                        <button type="button" class="btn btn-outline-secondary add-value-btn" data-param-id="${param.id}">Добавить</button>
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    }
+                });
+            }
+        });
+
+        // Функция для добавления выбранного значения параметра
+        function addSelectedValue(paramId, value) {
+            const selectedValuesContainer = $(`#selected-values-${paramId}`);
+            if (!selectedValuesContainer.find(`.selected-value[data-value="${value}"]`).length) {
+                selectedValuesContainer.append(`
+                    <div class="selected-value" data-value="${value}">
+                        ${value}
+                        <span class="remove-value" onclick="removeSelectedValue(${paramId}, '${value}')">❌</span>
+                    </div>
+                `);
+            }
+        }
+
+        // Функция для удаления выбранного значения параметра
+        function removeSelectedValue(paramId, value) {
+            $(`#selected-values-${paramId} .selected-value[data-value="${value}"]`).remove();
+        }
+
+        // Обработка нажатия на стрелочку для открытия/закрытия выпадающего списка
+        $(document).on('click', '.dropdown-toggle', function() {
+            $(this).toggleClass('active');
+            $(this).next('.dropdown-menu').toggle();
+        });
+
+        // Обработка выбора значения из выпадающего списка
+        $(document).on('click', '.dropdown-item', function() {
+            const paramId = $(this).closest('.parameter-block').find('.new-value-input').data('param-id');
+            const value = $(this).data('value');
+            addSelectedValue(paramId, value);
+            $(this).closest('.dropdown-menu').hide();
+            $(this).closest('.dropdown-toggle').removeClass('active');
+        });
+
+        // Обработка нажатия на кнопку "+" для отображения поля ввода нового значения
+        $(document).on('click', '.show-new-value-input', function() {
+            const paramId = $(this).data('param-id');
+            $(`#new-value-input-group-${paramId}`).toggle(); // Показываем/скрываем поле ввода
+        });
+
+        // Обработка добавления нового значения параметра
+        $(document).on('click', '.add-value-btn', function() {
+            const paramId = $(this).data('param-id');
+            const newValue = $(`.new-value-input[data-param-id="${paramId}"]`).val().trim();
+            if (newValue) {
+                $.ajax({
+                    url: `/add-value/${paramId}/`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    data: {
+                        value: newValue
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $(`.new-value-input[data-param-id="${paramId}"]`).val('');
+                            const dropdownMenu = $(`.parameter-block[data-param-id="${paramId}"] .dropdown-menu`);
+                            dropdownMenu.append(`
+                                <div class="dropdown-item" data-value="${newValue}">${newValue}</div>
+                            `);
+                            addSelectedValue(paramId, newValue); // Добавляем новое значение в выбранные
+                            $(`#new-value-input-group-${paramId}`).hide(); // Скрываем поле ввода после добавления
+                        } else {
+                            alert('Ошибка: ' + response.error);
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', error);
+                    }
+                });
+            } else {
+                alert('Пожалуйста, введите новое значение.');
+            }
+        });
+
+        // Обработка сохранения формы
+        $('#save-form-btn').click(function() {
+            const typeSkId = $('#id_type_sk').val(); // Получаем значение напрямую из выпадающего списка
+            const expl = $('#explanation').val().trim();
+            const parameters = [];
+
+            if (!typeSkId) {
+                alert('Пожалуйста, выберите тип СК.');
+                return; // Останавливаем выполнение, если тип СК не выбран
+            }
+
+            $('.parameter-block').each(function() {
+                const paramId = $(this).find('.new-value-input').data('param-id');
+                const values = $(`#selected-values-${paramId} .selected-value`).map(function() {
+                    return $(this).data('value');
+                }).get();
+                if (values.length > 0) {
+                    parameters.push({ paramId, values });
                 }
             });
 
-            $(document).on('click', '.add-value-btn', function() {
-                var paramId = $(this).data('param-id');
-                var newValue = $(`textarea[name="param_${paramId}"]`).val();
-                if (newValue) {
-                    $.ajax({
-                        url: `/add-value/${paramId}/`,
-                        method: 'POST',
-                        data: {
-                            value: newValue,
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                var existingValuesDiv = $(`textarea[name="param_${paramId}"]`).prev('.existing-values');
-                                existingValuesDiv.append(`\n${newValue}`);
-                                $(`textarea[name="param_${paramId}"]`).val('');
-                            }
-                        }
-                    });
+            if (parameters.length === 0) {
+                alert('Пожалуйста, выберите значения для параметров.');
+                return; // Останавливаем выполнение, если нет выбранных значений
+            }
+
+            let dataString = '';
+            const typeSkName = $('#id_type_sk option:selected').text();
+            dataString += typeSkName;
+
+            parameters.forEach(param => {
+                const paramName = $(`[data-param-id="${param.paramId}"]`).prev('label').text();
+                dataString += `, ${param.values.join(', ')}`;
+            });
+
+            $.ajax({
+                url: `/save-construct/`,
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: {
+                    type_sk_id: typeSkId,
+                    data_string: dataString,
+                    explanation: expl
+                },
+                success: function(response) {
+                    if (!response.success) {
+                        alert('Error: ' + response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
                 }
             });
         });

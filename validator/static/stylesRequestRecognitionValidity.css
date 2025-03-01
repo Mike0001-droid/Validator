@@ -1,0 +1,347 @@
+ /* Сброс стилей */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+
+    /* Общий стиль */
+    body {
+      font-family: sans-serif;
+      background: #f5f5f9;
+      display: 100%;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+.container-fluid{
+border-radius: 20%;
+}
+
+.modal-header {
+    background: transparent; /* Белый фон */
+    border-bottom: none; /* Убираем стандартную границу Bootstrap */
+    display: flex;
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center;
+    padding: 10px 25px;
+    border-radius: 10px 10px 0 0; /* Скругление верхних углов */
+}
+
+/* Заголовок внутри модального окна */
+.modal-title {
+    font-size: 24px; /* Размер шрифта */
+    font-weight: regular;
+    color: #333; /* Цвет текста */
+    margin: 0px; /* Убираем отступы */
+}
+
+.background-content{
+    display: flex;
+    justify-content: left; /* Выравниваем контент влево */
+    align-items: center; /* Центрируем по вертикали */
+    flex-direction: column; /* Располагаем элементы в колонку */
+    background: #ffffff; /* Белый фон */
+    border-radius: 10px; /* Скругленные углы */
+    padding: 20px; /* Общие отступы */
+    max-width: 500px; /* Ограничение ширины */
+    margin: 10px auto; /* Центрируем блок */
+    padding:20px ;
+}
+
+.border-information{
+background:#fff;
+border-radius: 10px;
+padding: 10px;
+height: 100px;
+margin: 1px 1px 10px 1px;
+justify-content: center; /* Центрируем контент по горизонтали */
+flex-wrap: wrap; /* Позволяем элементам переноситься */
+}
+
+.border-information p {
+padding: 5px;
+justify-content: center; /* Центрируем контент по горизонтали */
+flex-wrap: wrap; /* Позволяем элементам переноситься */
+font-size: 13px;
+}
+
+.modal-content{
+background:#f5f5f9;
+ width: min(550px, 90vh);
+ border-radius: 20px;
+flex-grow: 1;
+}
+
+label{
+color: #999999;
+font-size: 12px;
+margin:5px;
+}
+
+     /* Контейнер комбобокса */
+        .combobox {
+            position: relative;
+            width: 100%;
+            height: auto;
+            min-height: 60px;
+            margin-bottom: 10px;
+            background: #f5f5f9;
+            border-radius: 15px;
+            padding:10px 20px ;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Заголовок */
+        .combobox-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        /* Выбранные элементы */
+        .selected-items {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Элемент внутри комбобокса */
+        .combobox-item {
+            background: white;
+            padding:5px 10px ;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .combobox-item:hover {
+            background: #e0e0e0;
+        }
+
+        /* Стрелка вниз */
+        .combobox-arrow {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Список вариантов */
+        .combobox-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        /* Открытый список */
+        .combobox.open .combobox-options {
+            display: flex;
+        }
+
+        .combobox.open .combobox-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Кнопка удаления элемента */
+        .remove-item {
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: red;
+        }
+
+        /* Контейнер комбобоксов */
+.block-combobox {
+    display: flex;
+    gap: 20px;
+}
+
+/* Контейнер отдельного комбобокса */
+.new-combobox {
+    position: relative;
+    width: 200px;
+    background: white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Заголовок */
+.new-combobox-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+/* Выбранные элементы */
+.new-selected-items {
+    display: flex;
+ padding: 0px;
+    flex-wrap: wrap;
+}
+
+/* Выбранный элемент */
+.selected-item {
+    background: #f5f5f9;
+    padding:0px 10px ;
+    border-radius: 15px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+
+/* Стрелка вниз */
+.new-combobox-arrow {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+/* Список вариантов */
+.new-combobox-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    z-index: 10;
+}
+
+/* Открытый список */
+.new-combobox.open .new-combobox-options {
+    display: flex;
+}
+
+.new-combobox.open .new-combobox-arrow {
+    transform: rotate(180deg);
+}
+
+/* Вариант выбора */
+.new-combobox-item {
+    padding: 10px 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.new-combobox-item:hover {
+    background: #e0e0e0;
+}
+
+/* Кнопка удаления элемента */
+.remove-item {
+    margin-left: 8px;
+    margin 0px;
+    cursor: pointer;
+    font-size: 25px;
+    color: #ccc;
+}
+
+.remove-item:hover {
+    color: #fff; /* Темно-серый при наведении */
+}
+
+    /* Контейнер */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      max-width: auto;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    /* Кнопка «плюс» */
+    .plus-button {
+      width: 45px;
+      height: 35px;
+      border: none;
+      border-radius: 10px;
+      background: #fbf9f4;
+      cursor: pointer;
+      display: flex;
+      margin-left: 10px;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    /* Символ «+» внутри кнопки */
+    .plus-button::before {
+      font-size: 24px;
+      color: #c5a47e;
+    }
+
+    /* Поле ввода (скрыто по умолчанию) */
+    .input-container {
+      display: none;
+      background: #c5a47e;
+      border-radius: 10px;
+      padding: 5px 5px;
+      margin-left: 0px;
+      width: 100%;
+      align-items: center;
+    }
+
+    /* Само поле ввода */
+    .input-container input {
+      border: none;
+      background: transparent;
+      color: #000;
+      width: 100%;
+      text-align: left;
+      font-size: 13px;
+      outline: none;
+      margin-left: 10px;
+    }
+
+    /* Кнопка внутри поля */
+    .input-container button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      background: #c5a47e;
+      color: #fff;
+      margin-left: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .input-container button:hover {
+      background: #b39572;
+    }
+
+    .text-container{
+    background:#fff;
+    position: left;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    }
+}

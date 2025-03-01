@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>Request Recognition Validity</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
+
+  <link rel="stylesheet" href="{% static 'stylesRequestRecognitionValidity.css' %}">
+    <link rel="stylesheet" href="{% static 'font.css' %}">
+
+</head>
+<body>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#exampleModalCenter">
+   Запрос на признание валидности
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter"
+       tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Запрос на признание валидности</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <div class="row">
+
+              <div class="container-fluid">
+
+                <div class="row border-information">
+
+                <div class="col-2">
+                  <label class="label">Пояснение:</label>
+                </div>
+
+                <div class="col">
+                  <p>А. Иванов из Брусники согласовал, что мы теперь можем использовать любую арматуру, а не только А240 и А500С</p>
+                </div>
+
+              </div>
+
+                <div class=" block-combobox">
+
+
+                   <div class="new-combobox" id="newCombobox1">
+                      <div>
+                          <div class="new-combobox-label">Типы СК</div>
+                          <div class="new-selected-items" id="newSelectedItems1"></div>
+                      </div>
+                      <div class="new-combobox-arrow">
+                      <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                      </div>
+
+                      <!-- Выпадающий список -->
+                      <div class="new-combobox-options" id="newOptions1">
+                          <div class="new-combobox-item" data-value="Арматура">Арматура</div>
+                          <div class="new-combobox-item" data-value="Бетон">Бетон</div>
+                          <div class="new-combobox-item" data-value="Металл">Металл</div>
+                      </div>
+                  </div>
+
+                  <!-- Новый комбобокс 2 (Раздел) -->
+                  <div class="new-combobox" id="newCombobox2">
+                      <div>
+                          <div class="new-combobox-label">Раздел</div>
+                          <div class="new-selected-items" id="newSelectedItems2"></div>
+                      </div>
+                      <div class="new-combobox-arrow">
+                      <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                      </div>
+
+                      <!-- Выпадающий список -->
+                      <div class="new-combobox-options" id="newOptions2">
+                          <div class="new-combobox-item" data-value="КР">КР</div>
+                          <div class="new-combobox-item" data-value="АР">АР</div>
+                          <div class="new-combobox-item" data-value="ОВ">ОВ</div>
+                      </div>
+                  </div>
+
+                  <!-- Новый комбобокс 3 (Релиз) -->
+                  <div class="new-combobox" id="newCombobox3">
+                      <div>
+                          <div class="new-combobox-label">Релиз</div>
+                          <div class="new-selected-items" id="newSelectedItems3"></div>
+                      </div>
+                      <div class="new-combobox-arrow">
+                      <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                      </div>
+
+                      <!-- Выпадающий список -->
+                      <div class="new-combobox-options" id="newOptions3">
+                          <div class="new-combobox-item" data-value="1">1</div>
+                          <div class="new-combobox-item" data-value="2">2</div>
+                          <div class="new-combobox-item" data-value="3">3</div>
+                      </div>
+                  </div>
+
+
+              </div>
+
+              </div>
+
+              <div class="row background-content">
+
+                  <div class="combobox" id="customCombobox">
+                  <div>
+                      <div class="combobox-label">Производитель</div>
+                      <div class="selected-items" id="selectedItems">
+                          <!-- Выбранные элементы появляются здесь -->
+                      </div>
+                  </div>
+                  <div class="combobox-arrow">
+                   <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                  </div>
+
+                  <!-- Выпадающий список -->
+                  <div class="combobox-options" id="optionsList">
+                      <div class="combobox-item" data-value="Кран">ИП Кранов</div>
+                      <div class="combobox-item" data-value="Клапан">ИП Кранов</div>
+                      <div class="combobox-item" data-value="Бомбина">ИП Кранов</div>
+                      <div class="combobox-item" data-value="Фильтр">ИП Кранов</div>
+                      <div class="combobox-item" data-value="Редуктор">ИП Кранов</div>
+                  </div>
+              </div>
+
+                  <div class="container">
+                      <!-- Кнопка «плюс» -->
+                      <button class="plus-button" id="toggleBtn">
+                          <img class="imgObject" src="{% static 'images/buttonForChat.svg' %}" alt="Плюс">
+                      </button>
+
+                      <!-- Блок с полем ввода (скрыт по умолчанию) -->
+                      <div class="input-container" id="inputContainer">
+                        <div class="text-container">
+                        <input type="text" value="24">
+                        </div>
+                        <button>
+                            <img class="imgObject" src="{% static 'images/buttonForChatWhite.svg' %}" alt="Отправить">
+                        </button>
+                      </div>
+
+                    </div>
+
+                  <div class="combobox" id="customCombobox1">
+                      <div>
+                          <div class="combobox-label">Тип</div>
+                          <div class="selected-items" id="selectedItems1">
+                              <!-- Выбранные элементы появляются здесь -->
+                          </div>
+                      </div>
+                      <div class="combobox-arrow">
+                       <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                      </div>
+
+                      <!-- Выпадающий список -->
+                      <div class="combobox-options" id="optionsList1">
+                          <div class="combobox-item" data-value="Кран">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Клапан">ИП Иванов</div>
+                          <div class="combobox-item" data-value="Бомбина">ИП Котов</div>
+                          <div class="combobox-item" data-value="Фильтр">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Редуктор">ИП Кранов</div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <!-- Кнопка «плюс» -->
+                      <button class="plus-button" id="toggleBtn1">
+                          <img class="imgObject" src="{% static 'images/buttonForChat.svg' %}" alt="Плюс">
+                      </button>
+
+                      <!-- Блок с полем ввода (скрыт по умолчанию) -->
+                      <div class="input-container" id="inputContainer1">
+                        <div class="text-container">
+                        <input type="text" value="24">
+                        </div>
+                        <button>
+                            <img class="imgObject" src="{% static 'images/buttonForChatWhite.svg' %}" alt="Отправить">
+                        </button>
+                      </div>
+
+                    </div>
+
+                  <div class="combobox" id="customCombobox2">
+                      <div>
+                          <div class="combobox-label">Размером</div>
+                          <div class="selected-items" id="selectedItems2">
+                              <!-- Выбранные элементы появляются здесь -->
+                          </div>
+                      </div>
+                      <div class="combobox-arrow">
+                       <img class="imgObject" src="{% static 'images/arrowComboBox.svg' %}" alt="Отправить">
+                      </div>
+
+                      <!-- Выпадающий список -->
+                      <div class="combobox-options" id="optionsList2">
+                          <div class="combobox-item" data-value="Кран">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Клапан">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Бомбина">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Фильтр">ИП Кранов</div>
+                          <div class="combobox-item" data-value="Редуктор">ИП Кранов</div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <!-- Кнопка «плюс» -->
+                      <button class="plus-button" id="toggleBtn2">
+                          <img class="imgObject" src="{% static 'images/buttonForChat.svg' %}" alt="Плюс">
+                      </button>
+
+                      <!-- Блок с полем ввода (скрыт по умолчанию) -->
+                      <div class="input-container" id="inputContainer2">
+                        <div class="text-container">
+                        <input type="text" value="24">
+                        </div>
+                        <button>
+                            <img class="imgObject" src="{% static 'images/buttonForChatWhite.svg' %}" alt="Отправить">
+                        </button>
+                      </div>
+
+                    </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'toggleBtn.js' %}" type="module"></script>
+<script src="{% static 'combobox.js' %}" type="module"></script>
+<script src="{% static 'comboboxWhite.js' %}" type="module"></script>
+</body>
+</html>

@@ -4,24 +4,28 @@ from .forms import DynamicForm
 from .models import Parameter, Value
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import TypeBuildingConstruct, Parameter, Value, NewValueRequest, BuildingConstruct
 
 
 def dynamic_form_view(request):
-    if request.method == 'POST':
-        form = DynamicForm(request.POST)
-        if form.is_valid():
-            type_sk = form.cleaned_data['type_sk']
-            for key, value in form.cleaned_data.items():
-                if key.startswith('param_'):
-                    param_id = int(key.split('_')[1])
-                    param = Parameter.objects.get(id=param_id)
-                    Value.objects.filter(parametr_id=param).delete()
-                    for val in value.split(','):
-                        Value.objects.create(value=val.strip(), parametr_id=param)
-            return redirect('http://127.0.0.1:8000/admin/request_validator_form/value/')
-    else:
-        form = DynamicForm()
-    return render(request, 'request_validation_form.html', {'form': form})
+    building_constructs = TypeBuildingConstruct.objects.all()
+    parameters_data = []
+    type_sk_id = request.GET.get('type_sk')
+    if type_sk_id:
+        parameters = Parameter.objects.filter(bc_id=type_sk_id)
+        for param in parameters:
+            values = Value.objects.filter(parametr_id=param).values_list('value', flat=True)
+            parameters_data.append({
+                'id': param.id,
+                'name': param.name,
+                'values': list(values),
+            })
+    return render(request, 'request_validation_form.html', {
+        'building_constructs': building_constructs,
+        'parameters_data': parameters_data,
+        'form': DynamicForm(),
+    })
+
 
 def get_parameters(request, type_sk_id):
     parameters = Parameter.objects.filter(bc_id=type_sk_id)
@@ -35,19 +39,51 @@ def get_parameters(request, type_sk_id):
         })
     return JsonResponse(data, safe=False)
 
+
 @csrf_exempt
 def add_value(request, param_id):
     if request.method == 'POST':
-        value = request.POST.get('value')
-        print(value)
+        value = request.POST.get('value', '').strip()
         if value:
             try:
                 param = Parameter.objects.get(id=param_id)
-                Value.objects.create(value=value, parametr_id=param)
-                print("Результат",Value.objects.get(value=value))
+                new_value_request = NewValueRequest.objects.create(user_id="current_user")
+                Value.objects.create(
+                    value=value,
+                    parametr_id=param,
+                    value_request_id=new_value_request
+                )
                 return JsonResponse({'success': True})
             except Exception as e:
                 return JsonResponse({'success': False, 'error': str(e)}, status=400)
         else:
-            return JsonResponse({'success': False, 'error': 'Value is required'}, status=400)
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+            return JsonResponse({'success': False, 'error': 'Значение не может быть пустым'}, status=400)
+    return JsonResponse({'success': False, 'error': 'Недопустимый метод запроса'}, status=405)
+
+
+@csrf_exempt
+def save_construct(request):
+    if request.method == 'POST':
+        type_sk_id = request.POST.get('type_sk_id')
+        data_string = request.POST.get('data_string')
+        explanation = request.POST.get('explanation')
+        if type_sk_id and data_string:
+            try:
+                type_sk = TypeBuildingConstruct.objects.get(id=type_sk_id)
+                NewValueRequest.objects.create(
+                    user_id="current_user_id",
+                    explanation=explanation
+                )
+                BuildingConstruct.objects.create(
+                    type_sk=type_sk,
+                    data_string=data_string
+                )
+                return JsonResponse({'success': True})
+            except Exception as e:
+                return JsonResponse({'success': False, 'error': str(e)}, status=400)
+        else:
+            return JsonResponse({'success': False, 'error': 'Недостаточно данных'}, status=400)
+    return JsonResponse({'success': False, 'error': 'Недопустимый метод запроса'}, status=405)
+
+def new_template(request):
+    return render(request, 'new_template.html')

@@ -1,9 +1,12 @@
 from django import forms
-from .models import BuildingConstruct, Value, Parameter
+from .models import TypeBuildingConstruct, Value, Parameter
+
+from django import forms
+from .models import TypeBuildingConstruct
 
 class DynamicForm(forms.Form):
     type_sk = forms.ModelChoiceField(
-        queryset=BuildingConstruct.objects.all(),
+        queryset=TypeBuildingConstruct.objects.all(),
         label="Тип СК",
         widget=forms.Select(attrs={'id': 'id_type_sk'})
     )

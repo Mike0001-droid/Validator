@@ -1,0 +1,441 @@
+/* Универсальные стили */
+* {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Кастомизация скроллбаров */
+::-webkit-scrollbar {
+    width: 10px; /* Тонкая ширина */
+    height: 8px; /* Для горизонтальной прокрутки (если необходимо) */
+}
+
+/* Стиль для фона скроллбара */
+::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
+}
+
+/* Стиль для бегунка скроллбара */
+::-webkit-scrollbar-thumb {
+    background: #C5A47E !important; /* Цвет бегунка (подходящий для вашего дизайна) */
+    border-radius: 10px !important; /* Округленные углы */
+}
+
+/* Эффект при наведении на бегунок */
+::-webkit-scrollbar-thumb:hover {
+    background: #A28367 !important; /* Немного темнее при наведении */
+}
+
+header {
+    background: #fff;
+}
+
+/* Основной стиль для html и body */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important; /* Изменяем на visible */
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F5F9;
+}
+
+/* Общий стиль для боковой панели */
+.q-drawer {
+    background-color: #F5F5F9; /* Цвет фона */
+    border-right: 1px solid #E0E0E0;
+}
+
+/* Основной контейнер с прокруткой */
+.main-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden !important; /* Убираем горизонтальный скролл */
+    max-height: 1000px;
+    height: 100vh;
+    padding-right: 10px;
+    padding-left: 20px;
+    box-sizing: border-box; /* Чтобы паддинги не увеличивали общий размер */
+}
+
+/* Для Firefox */
+.main-container {
+    scrollbar-width: thin; /* Тонкий скроллбар */
+    scrollbar-color: #C5A47E #F5F5F5; /* Цвет бегунка и фона для Firefox */
+}
+
+/* Контейнер для всего контента */
+#all-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 0px;
+}
+
+/* Раздел для полезных ссылок */
+.information, .useful-links {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0px 10px 10px;
+    height: auto;
+}
+
+/* Стилизация текста внутри прямоугольников */
+.report {
+    display: flex;
+    align-items: right;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.info-container {
+    padding: 0px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.status-item .label {
+    font-weight: regular;
+    color: #AEADAB;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.info-row .line {
+    flex-grow: 1;
+    border-top: 1px solid #ddd;
+    margin-right: 10px;
+}
+
+.info-row .value {
+    font-size: 14px;
+    color: #34322E;
+}
+
+.status-container{
+padding: 0px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.status-item .status-label {
+    font-weight: regular;
+    color: #AEADAB;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.status-item .status-line {
+    flex-grow: 1;
+    border-top: 1px solid #ddd;
+    margin-right: 10px;
+}
+
+.status-item .status-dot green{
+width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    margin-right: 10px;
+}
+
+.status-item .status-text {
+    font-size: 14px;
+    color: #34322E;
+}
+
+/* Заголовок */
+header h1 {
+    font-size: 32px;
+}
+
+.useful-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.useful-links-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0px;
+    width: 100%;
+}
+
+.remarks-validation{
+margin-bottom: 10px;
+}
+
+/* Стили для темных прямоугольников */
+.dark-rectangle {
+    background: #494949;
+    padding: 0px;
+    border-radius: 10px;
+    margin: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* Стили для текста внутри темных прямоугольников */
+.white-text {
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 10px;
+}
+
+/* Логотип внутри темного прямоугольника */
+.logo-sarex {
+    align-items: center;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/* General Accordion Wrapper */
+.accordion-wrapper {
+    margin: 20px;
+    background-color: transparent; /* Transparent background */
+    border-radius: 10px;
+    box-shadow: none; /* No shadow */
+}
+
+/* Accordion Container */
+.accordion {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Accordion Item */
+.accordion-item {
+    border-bottom: 0px solid #ddd;
+}
+
+/* Accordion Button */
+.accordion-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: regular;
+    cursor: pointer;
+    border: 0px solid #fff;
+    background-color: #FFFFFF;
+    color: #333;
+    transition: all 0.3s ease;
+    margin: 5px 0px;
+    border-radius: 15px !important;
+    box-shadow: none !important;
+}
+
+.accordion-button::after {
+    display: none !important;
+}
+
+/* Custom Arrow Icon */
+.accordion-icon {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+
+/* Accordion Content (Hidden by default) */
+.accordion-collapse {
+    display: none;
+    max-height: 0;
+    padding: 10px 20px;
+    background-color: transparent;
+    font-size: 14px;
+    color: #fff;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* When the accordion item is open, show the content */
+.accordion-item.open .accordion-collapse {
+    display: block;
+    max-height: 500px; /* Adjust the max-height based on the content size */
+}
+
+/* Accordion Body */
+.accordion-body {
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: #333;
+}
+
+/* Стили для скрытого контента */
+.accordion-Grey{
+background: #f5f5f9;
+border-radius: 15px;
+}
+
+.accordion-collapse-Grey {
+    display: none; /* Скрыт по умолчанию */
+    max-height: 0; /* Устанавливаем максимальную высоту в 0 */
+    padding: 10px 20px;
+    background-color: transparent; /* Прозрачный фон */
+    font-size: 14px;
+    color: #666;
+    overflow: hidden; /* Контент не будет виден */
+    transition: max-height 0.3s ease-out; /* Плавное открытие */
+}
+
+/* Когда аккордеон открыт */
+.accordion-item-Grey.open .accordion-collapse-Grey {
+    display: block; /* Показываем контент */
+    max-height: 500px; /* Увеличиваем максимальную высоту в зависимости от содержимого */
+    overflow: visible; /* Открываем содержимое */
+}
+
+.accordion-button-Grey {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: regular;
+    cursor: pointer;
+    border: 0px solid #E6E6E6;
+    background-color: #f5f5f9;
+    color: #333;
+    transition: all 0.3s ease;
+    margin: 5px 0px;
+    border-radius: 15px;
+    box-shadow: none;
+}
+
+.accordion-icon-Grey {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Remove default Bootstrap arrow */
+.accordion-button-Grey::after {
+    display: none !important; /* Hides default arrow */
+}
+
+/* Hover effect for the accordion button */
+.accordion-button-Grey:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Light background on hover */
+}
+
+/* Rotate arrow when accordion is open */
+.accordion-item-Grey.open .accordion-icon-Grey {
+    transform: rotate(180deg);
+}
+
+/* Accordion Title for Grey */
+.accordion-title-Grey {
+    flex-grow: 1;
+}
+
+
+/* Show content when accordion is open */
+.accordion-item-Grey.open .accordion-collapse-Grey {
+    display: block;
+}
+
+/* Стили для тела аккордеона */
+.accordion-body-Grey {
+    padding: 10px 20px;
+    background-color: #f5f5f9;
+    border-radius: 5px;
+    color: #333;
+}
+
+.table-container {
+    overflow-x: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate; /* Используем раздельную модель, чтобы работало border-spacing */
+    border-spacing: 10px;      /* Задает отступ 10px между ячейками */
+}
+
+
+.table th{
+    padding: 12px;
+    text-align: center;
+}
+
+.td{
+    padding: 0px !important;
+    text-align: left !important;
+    background: transparent !important;
+     margin: 200px !important;
+}
+
+.table td{
+    padding: 5px;
+    text-align: center;
+    background: #F5F5F9;
+    border-radius: 20px;
+    margin: 200px !important;
+}
+
+.table td button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #E6E6E6;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.table tr{
+margin: 10px;
+}
+
+/* Адаптивные стили для маленьких экранов */
+@media (max-width: 992px) {
+    /* Можно добавлять специфичные стили для маленьких экранов здесь */
+}
+
+@media (max-width: 480px) {
+    /* Стиль для очень маленьких экранов */
+}
+
+@media (max-width: 768px) {
+    /* Стиль для экранов средних размеров */
+}
+
+@media (max-width: 576px) {
+    /* Еще более специфические стили для мобильных устройств */
+}

@@ -1,0 +1,1299 @@
+/* Универсальные стили */
+* {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Кастомизация скроллбаров */
+::-webkit-scrollbar {
+    width: 10px; /* Тонкая ширина */
+    height: 8px; /* Для горизонтальной прокрутки (если необходимо) */
+}
+
+/* Стиль для фона скроллбара */
+::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
+}
+
+/* Стиль для бегунка скроллбара */
+::-webkit-scrollbar-thumb {
+    background: #C5A47E !important; /* Цвет бегунка (подходящий для вашего дизайна) */
+    border-radius: 10px !important; /* Округленные углы */
+}
+
+/* Эффект при наведении на бегунок */
+::-webkit-scrollbar-thumb:hover {
+    background: #A28367 !important; /* Немного темнее при наведении */
+}
+
+header {
+ background: #fff;
+}
+
+/* Основной стиль для html и body */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important; /* Изменяем на visible */
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F5F9;
+}
+
+/* Общий стиль боковой панели */
+.q-drawer {
+    background-color: #F5F5F9; /* Цвет фона */
+    border-right: 1px solid #E0E0E0;
+}
+
+/* Контейнер иконок */
+.q-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Отступы между иконками */
+    padding-top: 40px;
+}
+
+/* Стили для ссылок */
+.q-item {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+/* Стили для активной ссылки */
+.q-router-link--exact-active {
+    background-color: #C5A47E; /* Бежевый цвет активной ссылки */
+    color: #fff !important;
+}
+
+/* Стили для иконок */
+.q-item i.q-icon {
+    font-size: 22px;
+
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Ховер-эффект на иконке */
+.q-item:hover i.q-icon {
+    color: #333; /* Темнее при наведении */
+    transform: scale(1.1);
+}
+
+/* Активная иконка */
+.q-router-link--exact-active i.q-icon {
+    color: #fff !important; /* Белый цвет */
+}
+
+/* Подсветка кнопок при наведении */
+.q-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Дополнительная анимация */
+.q-item i.q-icon {
+    transform: scale(1);
+}
+
+.q-item:hover i.q-icon {
+    transform: scale(1.2);
+}
+
+
+/* Контейнер для всего контента */
+#all-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px 20px 0px 20px;
+}
+
+/* Основной контейнер с прокруткой */
+.main-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden !important; /* Убираем горизонтальный скролл */
+    max-height: 1000px;
+    height: 100vh;
+    padding-right: 10px;
+    padding-left: 25px;
+    box-sizing: border-box; /* Чтобы паддинги не увеличивали общий размер */
+}
+
+/* Для Firefox */
+.main-container {
+    scrollbar-width: thin; /* Тонкий скроллбар */
+    scrollbar-color: #C5A47E #F5F5F5; /* Цвет бегунка и фона для Firefox */
+}
+
+
+
+/* Контейнер для всего контента */
+.container-fluid {
+    display: flex;
+    gap: 2px;
+    margin: 0;
+    background: #F5F5F9;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between; /* Размещает элементы по краям */
+    align-items: center; /* Выравнивает по центру */
+    width: 100%;
+    margin: 20px 0px 10px 0px  ;
+}
+
+/* Стиль для заголовков и кнопок */
+header h1 {
+    font-size: 2rem;
+}
+
+#border-all {
+    background: #F5F5F9;
+}
+
+/* Стиль кнопки фильтра */
+.filter-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    margin-top: 0px;
+}
+
+.filter-button:hover {
+    background-color: #F5F5F9;
+    border-color: #B0B0B0;
+}
+
+.filter-button:active {
+    background-color: #E0E0E0;
+}
+
+/* Контейнер для элементов */
+.element-types {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 150px;
+    margin-bottom: 0px;
+}
+
+.elements-container {
+    display: flex;
+    background: #F5F5F9;
+    padding: 5px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-y: auto;
+    justify-content: flex-start;
+}
+
+.element {
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 2px 10px;
+    font-size: 13px;
+    color: #333;
+    border: 0px solid #E0E0E0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.element:hover {
+    background-color: #F5E1D0;
+    color: #000;
+}
+
+.title {
+    text-align: center;
+    background: #C5A47E;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: regular;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+#border-filter{
+    background-color: #F5F5F9; /* Черный фон */
+    border-radius: 15px; /* Скругленные углы */
+    padding: 10px; /* Внутренние отступы */
+    color: #FFF; /* Белый текст */
+    max-height: 506px;
+}
+.accordion-button svg path {
+    transition: stroke 0.3s ease-in-out;
+}
+
+.accordion-button.open svg path {
+    stroke: white !important; /* Делаем белыми при открытии */
+}
+/* Стили для дерева */
+#border-tree {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding-top: 10px;
+    background: #F5F5F9;
+    border-radius: 15px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: auto;
+    height: auto;
+    max-height: 721px;
+    margin: 0px 0px 20px 0px;
+    overflow-y: auto;  /* Включаем вертикальную прокрутку */
+}
+
+/* Стили для дерева */
+.tree-toolbar {
+    position: sticky; /* С помощью sticky закрепляем панель, чтобы она оставалась на месте при прокрутке */
+    top: 10px;
+    align-items: flex-end !important;
+    right: 10px;
+    background: #fff;
+    padding: 5px;
+    max-width: 220px;
+    border-radius: 15px;
+    margin: 10px 10px;
+
+}
+
+.tree-toolbar button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin: 0px 5px;
+}
+
+.tree-toolbar button img {
+    width: 17px;
+    height: 17px;
+    margin: 3px 0px;
+    transition: transform 0.2s ease;
+}
+
+.tree-toolbar button:hover img {
+    transform: scale(1.1);
+}
+
+/* Стиль для стрелки в дереве */
+.arrow-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+}
+
+/* Стиль для стрелки, когда она развернута */
+.tree-folder.open .arrow-icon {
+    content: url("{% static 'images/развернутая-стрелка.svg' %}");
+}
+
+/* Стиль для стрелки, когда она свернута */
+.tree-folder:not(.open) .arrow-icon {
+    content: url("{% static 'images/свернутая-стрелка.svg' %}");
+}
+
+/* Стиль для папок */
+.tree-folder {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.folder-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+/* Стиль для файлов */
+.file-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* Стиль для файлов */
+.file-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/*  Убираем точки списка, но сохраняем отступы */
+ul, ol {
+    list-style: none !important;
+    margin: 0;
+    padding-left: 15px !important;
+}
+
+/*  Устанавливаем отступы для вложенных элементов (чтобы структура сохранялась) */
+.tree-list ul,
+.tree-folder ul {
+    list-style-type: none !important; /* Полностью убираем точки */
+    margin: 0;
+    padding-left: 20px; /* Отступ для вложенных элементов */
+}
+
+/* Контейнер для папок и файлов */
+.tree-folder, .file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+/*  Подсветка при наведении */
+.tree-folder:hover, .file-item:hover {
+    background: rgba(197, 164, 126, 0.1);
+}
+
+/*  Стрелка для открытия папки */
+.arrow-icon {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+/*  Иконки папок и файлов */
+.folder-icon, .file-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/*  Открытая папка - стрелка разворачивается */
+.tree-folder.open .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/*  Выравниваем текст относительно иконок */
+.tree-folder div, .file-item div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Стили для синхронизации */
+.current-synchronization {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding: 20px 0px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.synchronization-details, .operations-container {
+    width: auto;
+    padding: 5px;
+    margin: 0px 0px 15px 0px;
+    background: #F5F5F9;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.sync-text {
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Стиль для второго столбца */
+#p {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: calc(1.0rem + .5vw);
+}
+
+.info-container {
+    padding: 0px 10px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+
+.info-row .label {
+    font-weight: regular;
+    color: #AEADAB;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.info-row .line {
+    flex-grow: 1;
+    border-top: 1px solid #ddd;
+    margin-right: 10px;
+}
+
+.info-row .value {
+    font-size: 14px;
+    color: #34322E;
+}
+
+.info-row .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.info-row .icon img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.filter-container{
+    display: flex;
+    justify-content: flex-end;
+    right: 20px; /* Сдвигает фильтр вправо */
+    margin: 0px 0px  10px  0px ;
+}
+
+.accordion {
+    background-color: transparent; /* Оставляем аккордеон прозрачным */
+
+}
+
+/* Убираем стандартную стрелку Bootstrap */
+.accordion-button::after {
+    display: none !important;
+}
+
+
+
+/* Поле ввода */
+/* Общий контейнер */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 0px;
+    width: 100%; /* Делаем адаптивной */
+    max-width: 400px; /* Ограничение максимальной ширины */
+}
+
+/* Поле ввода */
+.input-group input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+
+/* Иконка лупы внутри поля */
+.search-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.6;
+    margin-right: 10px;
+}
+
+/* Кнопка очистки (крестик) */
+.clear-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin:5px;
+    display: flex;
+    align-items: center;
+    visibility: hidden; /* По умолчанию скрыт */
+}
+
+/* Крестик внутри кнопки */
+.clear-button img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+}
+
+/* Контейнер для кнопки поиска */
+.input-group-append {
+    margin-left: 10px;
+}
+
+/* Кнопка поиска */
+.input-group-append .btn {
+    background: #C5A47E; /* Основной цвет */
+    border: none;
+    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Иконка внутри кнопки */
+.input-group-append .btn img {
+    width: 20px;
+    height: 20px;
+    margin: 5px 0px 5px 0px;
+    filter: brightness(0) invert(1) !important; /* Делаем картинку белой */
+    transition: transform 0.2s ease, filter 0.3s ease;
+}
+
+/* Эффект при наведении */
+.input-group-append .btn:hover {
+    background: #B39572 !important; /* Цвет при наведении */
+    transform: scale(1.05) !important;
+}
+
+/* Иконка становится белой */
+.input-group-append .btn:hover img {
+    filter: brightness(0) invert(1) !important; /* Делаем картинку белой */
+    transform: scale(1.1);
+}
+
+/* Убираем голубое свечение при фокусе */
+.input-group-append .btn:focus,
+.input-group-append .btn:active {
+    border-color: #C5A47E !important; /* Меняем границу */
+    box-shadow: none !important; /* Убираем подсветку */
+}
+
+/* Изменение цвета рамки при фокусе */
+.input-group input:focus {
+    border-color: #C5A47E !important; /* Меняем голубой цвет на C5A47E */
+    box-shadow: none !important; /* Убираем свечение */
+}
+
+/* Стиль кнопки поиска */
+.search-button {
+    background: #C5A47E;
+    border-radius: 10px;
+    border: none;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+
+/* Иконка внутри кнопки */
+.search-button img {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+}
+
+/* Эффекты наведения */
+.search-button:hover {
+    background: #B39572;
+}
+
+.search-button:hover img {
+    transform: scale(1.1);
+}
+
+
+/* Стили для аккордеона */
+.accordion-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: regular;
+    cursor: pointer;
+    border: 1px solid #E6E6E6; /* Серая обводка */
+    background-color: #FFFFFF; /* Белый фон */
+    color: #333; /* Темный текст */
+    transition: all 0.3s ease;
+    margin: 5px 0px;
+    border-radius: 15px !important; /* Универсальное закругление */
+    box-shadow: none !important;
+}
+
+.accordion-button img{
+    margin: 0px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Открытый аккордеон */
+.accordion-button.open {
+    background-color: #000000; /* Черный фон */
+    color: #FFFFFF; /* Белый текст */
+    border: 0px ; /* Черная обводка */
+}
+
+.accordion-icon img{
+transform: rotate(0deg);
+}
+
+/* Стиль стрелки */
+.accordion-icon {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background: transparent;
+    padding: 5px;
+    margin-right: 20px;
+    transform: rotate(0deg); /* Исходное положение (вправо) */
+    transition: transform 0.3s ease;
+}
+
+/* Открытая стрелка */
+.accordion-button.open .accordion-icon {
+    transform: rotate(180deg); /* Поворачиваем вниз */
+}
+
+/* Контейнер аккордеона */
+.accordion-collapse {
+    margin: 0px !important;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0px !important;
+    box-sizing: border-box;  /* Убедимся, что паддинги и обводка не выходят за пределы */
+}
+
+/* Уменьшаем отступы в теле аккордеона */
+.accordion-body {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: column;
+    padding: 0px 0px 0px 60px !important;
+
+    gap: 5px !important; /* Уменьшаем отступы между элементами */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    box-sizing: border-box; /* Учитываем паддинги в размере */
+}
+
+.accordion-body .list-group-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 0px 10px 0px; /* Отступ снизу для каждой кнопки */
+    font-size: 10px;
+    font-weight: regular;
+    background: transparent;
+    border: 1px solid #E0E0E0; /* Внешняя обводка */
+    border-radius: 15px !important;
+    color: #34322E !important;
+    text-align: left;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+}
+
+
+.list-group-item {
+    padding: 0px 10px;
+    justify-content: flex-end;
+}
+
+/* Контейнер с аккордеонами, в котором будет работать кастомный скролл */
+.accordion-wrapper {
+    max-height: 450px; /* Ограничение высоты */
+    overflow-y: auto; /* Включаем вертикальный скролл */
+    padding-right: 10px; /* Отступ справа для скроллбара */
+    border-radius: 10px;
+}
+
+/* Для Firefox */
+.accordion-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #C5A47E transparent; /* Цвет бегунка, без фона */
+}
+
+/* Исправление границ */
+.accordion-item {
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+}
+
+.accordion-header {
+    border: none;
+    margin: 0; /* Убираем внешние отступы у заголовка */
+    padding: 0;
+}
+.list-group {
+    display: flex; /* Размещаем элементы в строку или столбец */
+    flex-direction: column; /* Выравниваем элементы по вертикали */
+    gap: 0px; /* Отступы между элементами */
+}
+
+/* Стилизация первого текста (номер транзакции) */
+.list-group-item span:first-child {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.3); /* Серый цвет */
+}
+
+/* Стилизация второго текста (действие) */
+.list-group-item span:last-child {
+    font-size: 16px;
+    font-weight: regular;
+    color: black;
+}
+
+/* Добавляем разделительную полосу между текстами */
+.list-group-item span:first-child::after {
+    content: "";
+    display: inline-block;
+    width: 100px; /* Длина полоски */
+    height: 1px;
+    background-color: transparent; /* Цвет разделительной линии */
+    margin: 0px 10px; /* Отступы */
+    vertical-align: middle;
+}
+
+/* При нажатии текст становится в одну линию */
+.list-group-item.active {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #C5A47E; /* Цвет фона */
+    border: none;
+    min-height: 50px;
+}
+
+/* Разделительная полоска между текстами при нажатии */
+.list-group-item.active span:first-child::after {
+    background: white;
+}
+
+/* Обязательно меняем цвет текста на белый */
+.list-group-item.active span {
+    color: white !important;
+}
+
+/* Стили для мини-аккордеона */
+.accordion-item-mini{
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    margin: 0 5px;
+}
+
+.accordion-header-mini {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.accordion-button-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 4px 20px; /* уменьшенные отступы */
+    font-size: 14px;
+    font-weight: regular;
+    cursor: pointer;
+    border: 0px solid #E6E6E6;
+    background-color: #FFFFFF;
+    color: #333;
+    transition: all 0.3s ease;
+    margin: 5px;
+    border-radius: 15px !important;
+    box-shadow: none !important;
+}
+
+.accordion-button-mini img {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.accordion-button-mini.open {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: 0;
+}
+
+.accordion-icon-mini {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background: transparent;
+    padding: 5px;
+    margin-right: 10px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.accordion-button-mini.open .accordion-icon-mini {
+    transform: rotate(180deg);
+}
+
+.accordion-collapse-mini {
+    margin: 0px !important;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 0px;
+    box-sizing: border-box;
+}
+
+
+.accordion-body-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#border-filter {
+    max-height: 480px; /* Ограничение высоты */
+    overflow-y: auto; /* Включаем вертикальный скролл */
+    padding: 10px;
+    border-radius: 15px;
+    background: #F5F5F9; /* Фон блока */
+}
+
+/* Контейнер чекбоксов */
+.checkbox-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px 10px;
+    display: flex;
+    background: transparent !important;
+    flex-direction: column; /* Упорядочивает элементы в колонку */
+    gap: 10px; /* Разделяет чекбоксы между собой */
+}
+
+/* Стиль для формы чекбоксов */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Добавляет отступ между чекбоксом и текстом */
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Эффект наведения */
+.form-check:hover {
+    background: rgba(197, 164, 126, 0.1);
+    transition: background 0.3s ease;
+}
+
+/* Стилизация чекбокса */
+.form-check-input {
+    width: 18px; /* Сделаем квадратным */
+    height: 18px; /* Сделаем квадратным */
+    margin: 0; /* Убираем отступы */
+    appearance: none !important;
+    background-color: transparent; /* Убираем фон */
+    border: 2px solid #E6E6E6; /* Красивая рамка */
+    border-radius: 3px; /* Скругление для квадрата */
+    display: inline-block;
+    cursor: pointer;
+}
+
+#tmn{
+margin: 0px 0px;
+}
+
+/* Стилизация при наведении */
+.form-check-input:hover {
+    background-color: rgba(197, 164, 126, 0.2) !important;
+}
+
+/* Стилизация, когда чекбокс отмечен */
+.form-check-input:checked {
+    background-color: #C5A47E !important;
+    border-color: #C5A47E !important;
+    box-shadow: 0px 0px 5px rgba(180, 140, 100, 0.8) !important;
+}
+
+/* Добавляем галочку в чекбокс */
+.form-check-input:checked::after {
+    content: '\2713'; /* Галочка */
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+}
+
+/* Анимация при нажатии */
+.form-check-input:active {
+    transform: scale(0.9);
+}
+
+/* Фокус */
+.form-check-input:focus {
+    box-shadow: 0px 0px 5px rgba(180, 140, 100, 0.6) !important;
+    border-color: #C5A47E !important;
+}
+
+/* Отключенный чекбокс */
+.form-check-input:disabled {
+    background-color: #E5D0B0 !important;
+    border-color: #C5A47E !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Стилизация текста рядом с чекбоксом */
+.form-check-label {
+    color: #333;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+/* Если чекбокс отмечен, делаем текст черным */
+.form-check-input:checked + .form-check-label {
+    color: #000 !important;
+}
+
+/* Основной стиль календаря */
+.calendar {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px 0px;
+    font-size: 10px;
+    width: 100%;
+    max-width: 250px; /* Устанавливаем максимальную ширину */
+    min-width: 170px;
+}
+
+/* Заголовок календаря */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Название месяца и года */
+#month-year {
+    color: #000; /* Месяц и год черным цветом */
+    font-size: 18px;
+    font-weight: regular;
+}
+
+/* Кнопки переключения месяцев */
+.nav-button {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #B0B0B0; /* Стрелки серые */
+}
+
+/* Контейнер для дней недели */
+.days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 колонок */
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #B0B0B0; /* Дни недели серые */
+    margin-bottom: 5px;
+}
+
+/* Сеточка для дней месяца */
+#days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 колонок */
+    grid-gap: 3px;
+    font-size: 8px;
+    text-align: center;
+}
+
+/* Дни месяца */
+.day {
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #000; /* Черный цвет для дней текущего месяца */
+}
+
+/* Стили для дней из других месяцев */
+.other-month {
+    color: #B0B0B0; /* Серый цвет для дней из другого месяца */
+}
+
+/* Сегодняшний день */
+.today {
+    font-weight: bold;
+}
+
+/* Подсветка выбранных дней */
+.selected {
+    background-color: #C5A47E;
+    color: white;
+}
+
+/* Подсветка диапазона */
+.range {
+    background-color: #FAF6F3;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Стилизация контейнера выбора месяца и года */
+.dropdown-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 60px;
+    margin-bottom: 10px;
+    background: #f5f5f9;
+    border-radius: 15px;
+    padding:10px 20px ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Горизонтальное расположение месяцев и годов */
+.flex-dropdown {
+    display: flex;
+    gap: 20px;
+}
+
+/* Контейнер для месяцев (отдельный скролл) */
+.months-scroll {
+    max-height: 120px;
+    overflow-y: auto;
+    width: 120px;
+}
+
+/* Контейнер для годов (отдельный скролл) */
+.years-scroll {
+    max-height: 120px;
+    overflow-y: auto;
+    width: 80px;
+}
+
+
+
+/* Стиль элементов списка */
+.dropdown-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+.dropdown-item:hover {
+    background: #F5F5F9;
+}
+
+
+/* Адаптивные стили для маленьких экранов */
+@media (max-width: 992px) {
+    .container-fluid {
+        flex-direction: column;
+    }
+
+        .tree-toolbar {
+
+    margin: 0px 5px;
+}
+    /* Контейнер дерева с прокруткой */
+#tree-view {
+    max-height: 100%; /* Вытягиваем до доступной высоты родительского контейнера */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    padding-right: 10px; /* Отступ справа для скроллбара */
+    padding-top: 30px;
+}
+
+
+    #all-content {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+     .main-container {
+        display: flex;
+        flex-direction: column; /* Делаем столбцы вертикальными */
+    }
+
+    .filter-button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-fluid {
+        grid-template-columns: 1fr;
+    }
+
+    #all-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+     .main-container {
+        display: flex;
+        flex-direction: column; /* Делаем столбцы вертикальными */
+    }
+
+    .input-group {
+        max-width: 90%; /* Уменьшаем ширину на маленьких экранах */
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+        .tree-toolbar {
+    top: 5px;
+    right: 5px;
+    margin: 0px 5px;
+    max-height: 100px;
+}
+
+    .filter-button {
+        font-size: 0.8rem;
+    }
+
+    .info-row .value {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-button {
+        width: 100%;
+    }
+
+    .filters {
+        gap: 10px;
+    }
+
+    .tree-toolbar {
+    top: 5px;
+    right: 5px;
+    margin: 0px 5px;
+    max-height: 100px;
+}
+
+    #all-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+     .main-container {
+        display: flex;
+        flex-direction: column; /* Делаем столбцы вертикальными */
+    }
+
+    .filter-item {
+        padding: 10px;
+    }
+
+    .filter-button-toggle {
+        padding: 10px 5px;
+    }
+
+    .transaction-type-filter input[type="checkbox"],
+    .transaction-surname-filter input[type="text"],
+    input[type="date"] {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .filter-header {
+        font-size: 14px;
+    }
+
+    text {
+        font-size: 12px;
+    }
+
+    #all-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+     .main-container {
+        display: flex;
+        flex-direction: column; /* Делаем столбцы вертикальными */
+    }
+
+    .transaction-type-filter label,
+    .transaction-surname-filter label {
+        font-size: 12px;
+    }
+
+        .tree-toolbar {
+    top: 5px;
+    right: 5px;
+    margin: 0px 5px;
+   height: 100px;
+}
+
+    input[type="date"],
+    .transaction-surname-filter input[type="text"] {
+        font-size: 12px;
+    }
+}
