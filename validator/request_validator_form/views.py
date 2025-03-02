@@ -47,11 +47,9 @@ def add_value(request, param_id):
         if value:
             try:
                 param = Parameter.objects.get(id=param_id)
-                new_value_request = NewValueRequest.objects.create(user_id="current_user")
                 Value.objects.create(
                     value=value,
                     parametr_id=param,
-                    value_request_id=new_value_request
                 )
                 return JsonResponse({'success': True})
             except Exception as e:
@@ -67,16 +65,23 @@ def save_construct(request):
         type_sk_id = request.POST.get('type_sk_id')
         data_string = request.POST.get('data_string')
         explanation = request.POST.get('explanation')
+        chapter = request.POST.get('chapter')
+        release = request.POST.get('release')
+
         if type_sk_id and data_string:
             try:
                 type_sk = TypeBuildingConstruct.objects.get(id=type_sk_id)
-                NewValueRequest.objects.create(
+                type_sk.release = release
+                type_sk.chapter = chapter
+                type_sk.save()
+                new_value_request = NewValueRequest.objects.create(
                     user_id="current_user_id",
                     explanation=explanation
                 )
                 BuildingConstruct.objects.create(
                     type_sk=type_sk,
-                    data_string=data_string
+                    data_string=data_string,
+                    value_request_id = new_value_request
                 )
                 return JsonResponse({'success': True})
             except Exception as e:

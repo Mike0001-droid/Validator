@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'stylesRequestRecognitionValidity.css' %}">
     <link rel="stylesheet" href="{% static 'font.css' %}">
     <style>
-        /* Стили для выпадающего списка */
         .custom-dropdown {
             position: relative;
             display: inline-block;
@@ -70,12 +69,10 @@
             cursor: pointer;
             color: #dc3545;
         }
-        /* Стили для скрытого поля ввода */
         .new-value-input-group {
-            display: none; /* Изначально скрыто */
+            display: none;
             margin-top: 10px;
         }
-        /* Стили для области параметра */
         .parameter-block {
             margin-bottom: 20px;
             padding: 15px;
@@ -95,6 +92,7 @@
             margin-top: 10px;
             cursor: pointer;
         }
+
     </style>
 </head>
 <body>
@@ -121,6 +119,24 @@
                                         <textarea id="explanation" class="form-control" rows="3" placeholder="Введите пояснение"></textarea>
                                     </div>
                                 </div>
+                                
+                                <div class="row border-information">
+                                    <div class="col-2">
+                                        <label class="label">Релиз:</label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="release" class="form-control" rows="3" placeholder="Введите релиз"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row border-information">
+                                    <div class="col-2">
+                                        <label class="label">Раздел:</label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="chapter" class="form-control" rows="3" placeholder="Введите раздел"></input>
+                                    </div>
+                                </div>
 
                                 <form id="dynamic-form">
                                     <div class="mb-3">
@@ -135,7 +151,6 @@
                                     </div>
 
                                     <div id="parameters-container">
-                                        <!-- Параметры будут добавляться сюда динамически -->
                                     </div>
                                     <button type="button" id="save-form-btn" class="btn btn-primary">Сохранить</button>
                                 </form>
@@ -183,8 +198,8 @@
 
         // Функция для удаления выбранного типа СК
         function removeSelectedTypeSk() {
-            $('#selected-types-sk').empty(); // Очищаем блок выбранного типа СК
-            $('#id_type_sk').val(''); // Сбрасываем выбор в выпадающем списке
+            $('#selected-types-sk').empty();
+            $('#id_type_sk').val('');
         }
 
         // Обработка выбора типа СК
@@ -288,8 +303,8 @@
                             dropdownMenu.append(`
                                 <div class="dropdown-item" data-value="${newValue}">${newValue}</div>
                             `);
-                            addSelectedValue(paramId, newValue); // Добавляем новое значение в выбранные
-                            $(`#new-value-input-group-${paramId}`).hide(); // Скрываем поле ввода после добавления
+                            addSelectedValue(paramId, newValue);
+                            $(`#new-value-input-group-${paramId}`).hide();
                         } else {
                             alert('Ошибка: ' + response.error);
                         }
@@ -305,13 +320,15 @@
 
         // Обработка сохранения формы
         $('#save-form-btn').click(function() {
-            const typeSkId = $('#id_type_sk').val(); // Получаем значение напрямую из выпадающего списка
+            const typeSkId = $('#id_type_sk').val();
             const expl = $('#explanation').val().trim();
+            const rls = $('#release').val();
+            const chpt = $('#chapter').val();
             const parameters = [];
 
             if (!typeSkId) {
                 alert('Пожалуйста, выберите тип СК.');
-                return; // Останавливаем выполнение, если тип СК не выбран
+                return;
             }
 
             $('.parameter-block').each(function() {
@@ -326,7 +343,7 @@
 
             if (parameters.length === 0) {
                 alert('Пожалуйста, выберите значения для параметров.');
-                return; // Останавливаем выполнение, если нет выбранных значений
+                return;
             }
 
             let dataString = '';
@@ -347,9 +364,12 @@
                 data: {
                     type_sk_id: typeSkId,
                     data_string: dataString,
-                    explanation: expl
+                    explanation: expl,
+                    release: rls,
+                    chapter: chpt,
                 },
                 success: function(response) {
+
                     if (!response.success) {
                         alert('Error: ' + response.error);
                     }

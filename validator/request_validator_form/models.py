@@ -12,12 +12,6 @@ class NewValueRequest(models.Model):
 class Value(models.Model):
     value = models.CharField(max_length=255, db_index=True)
     parametr_id = models.ForeignKey('Parameter', on_delete=models.CASCADE, db_index=True)
-    value_request_id = models.ForeignKey(
-        'NewValueRequest', 
-        on_delete=models.CASCADE, 
-        related_name='values',
-        null=True,
-    )
     class Meta:
         constraints = [
             models.UniqueConstraint(
@@ -31,13 +25,19 @@ class Value(models.Model):
     
 
 class BuildingConstruct(models.Model):
+    data_string = models.CharField("Строка данных", max_length=255)
+
     type_sk = models.ForeignKey(
         'TypeBuildingConstruct', 
         on_delete=models.CASCADE, 
         related_name='constructs',
     )
-    data_string = models.CharField("Строка данных", max_length=255)
-
+    value_request_id = models.ForeignKey(
+        'NewValueRequest', 
+        on_delete=models.CASCADE, 
+        related_name='buildingconstructs',
+        null=True,
+    )
     def __str__(self):
         return self.data_string
     
@@ -45,6 +45,7 @@ class BuildingConstruct(models.Model):
 class TypeBuildingConstruct(models.Model):
     type_sk = models.CharField("Название типа СК", max_length=255)
     release = models.CharField("Релиз", max_length=10)
+    chapter = models.CharField("Раздел", max_length=10)
 
     def __str__(self):
         return self.type_sk
